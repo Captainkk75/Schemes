@@ -1,29 +1,30 @@
 
 -- A scheme consists of 
     --questions:    a list of tuples of 2 integers representing the coefficients of a linear equation in 1 variable
-    --answers :     a list of tuples of 1 integer representing the solution to linear equation in 1 variable
-data Pool = Pool [(Int,Int)] [(Floating)]
+    --answers :     a list of tuples of 1 floating point numbers representing the solution to linear equation in 1 variable
+    
+data Scheme = Scheme [(Int,Int)] [(Floating)]
 
-assign :: Pool a => a -> [((Int,Int),Floating)]
+assign :: Scheme -> [((Int,Int),Floating)]
 -- assigns questions to answers
--- input:   a pool containing questions and answers 
+-- input:   a scheme containing questions and answers 
 -- output:  a list describing the assignment of answers to questions
 
-transformQuestions :: Pool a => a -> ([(Int,Int)] -> [(Int, Int)]) -> a
+transformQuestions :: Scheme -> ([(Int,Int)] -> [(Int, Int)]) -> Scheme
 -- transforms the questions -- for example by matrix multiplication
--- input:   a pool containing questions and answers
+-- input:   a scheme containing questions and answers
 --          a function that transforms the questions to new questions
--- output:  a pool containing new questions and old answers
+-- output:  a scheme containing new questions and old answers
 
-transformAnswers :: Pool a => a -> ([(Floating)] -> [(Floating)]) -> a
+transformAnswers :: Scheme -> ([(Floating)] -> [(Floating)]) -> Scheme
 -- transforms the answers -- for example by matrix multiplication
--- input:   a pool containing questions and answers
+-- input:   a scheme containing questions and answers
 --          a function that transforms the answers to new answers
--- output:  a pool containing old questions and new answers
+-- output:  a scheme containing old questions and new answers
 
-checkAssignment :: Pool a => a -> ([(Int,Int)] -> [(Int, Int)]) -> ([(Floating)] -> [(Floating)]) -> (a -> [((Int,Int),Floating)]) -> [Bool]
--- transforms the questions and asnwers and checks which assignments are valid 
--- input:   a pool containing questions and answers
+checkAssignment :: Scheme -> ([(Int,Int)] -> [(Int, Int)]) -> ([(Floating)] -> [(Floating)]) -> (Scheme -> [((Int,Int),Floating)]) -> [Bool]
+-- transforms the questions and answers and checks which assignments are still valid 
+-- input:   a scheme containing questions and answers
 --          a function that transforms questions
 --          a function that transforms answers
 --          a function that assigns new answers to new questions
@@ -45,6 +46,9 @@ interested in using as a way to transform the questions and the answers
 and check if the new assignment is homotopic to the old assignment; (which questions and answers are
 still assigned to each other). If something like this can be implemented, one could discover new
 questions to new answers (for example extrapolate with the data one has).
+
+4. I have used polynomial equations in 1 variable with integer coefficients as an example, but more 
+general constructions could be used.
 -}
 
 -- Questions
