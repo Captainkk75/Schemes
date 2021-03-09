@@ -22,13 +22,42 @@ transformAnswers :: Scheme -> ([(Floating)] -> [(Floating)]) -> Scheme
 --          a function that transforms the answers to new answers
 -- output:  a scheme containing old questions and new answers
 
-checkAssignment :: Scheme -> ([(Int,Int)] -> [(Int, Int)]) -> ([(Floating)] -> [(Floating)]) -> (Scheme -> [((Int,Int),Floating)]) -> [Bool]
+checkAssignment :: Scheme 
+-> ([(Int,Int)] -> [(Int, Int)]) -- a function that transforms questions
+-> ([(Floating)] -> [(Floating)]) -- a function that transforms answers
+-> (Scheme -> [((Int,Int),Floating)]) -- a function that assigns answers to questions
+-> [Bool] -- a list of booleans representing which assignments are still valid 
+-- according to the function the same function that compares the assignments before the transformations and the assignments after the transformations
+
 -- transforms the questions and answers and checks which assignments are still valid 
 -- input:   a scheme containing questions and answers
 --          a function that transforms questions
 --          a function that transforms answers
 --          a function that assigns new answers to new questions
 -- output:  a list of booleans representing which assignments are still valid.
+
+
+-- UNDER CONSTRUCTION AND NOT YET WELL THOUGHT OF
+
+checkLocalIsomorphism :: Scheme -> Scheme -- two schemes
+-> [Bool]
+
+-- checks if the questions common to both the schemes are assigned to the same answer
+-- if a question is in only one of the schemes, a true value is returned for that question
+-- input :: two schemes
+-- output :: a list of booleans representing if the same answer is assigned to the same question in both the schemes
+
+areHomotopic :: Scheme -> Scheme -- two schemes whose "homotopy" is in question
+-> (Scheme -> ([(Int,Int)] -> [(Int, Int)]) -> Scheme) -- a function that transform the questions, with type signature that of transformQuestions
+-> (Scheme -> ([(Floating)] -> [(Floating)]) -> Scheme) ->  -- a function that transform the answers, with type signature that of transformAnswers
+-> (Scheme -> [((Int,Int),Floating)]) -- a function that assigns answers to questions, with type signature that of assign
+-- the transformQuestions function transforms oen of the collections of questions to get two new collection of questions
+-- and the transformAnswers function transforms one of the collections of answers to get two new collection of answers
+-- obtaining two new schemes -- almost but not assigned yet
+-- the assign function assigns the new answers to the new questions
+
+-> [Bool]
+
 
 -- Comments
 {-
